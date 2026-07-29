@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
 
-import heroKids from "@/assets/hero-kids.jpg";
+import despreHero from "@/assets/despre-hero.jpg";
 import PageHero from "@/components/PageHero.vue";
 
 useHead({
@@ -44,8 +44,8 @@ const values = [
     <div class="mx-auto grid max-w-6xl items-center gap-12 px-6 lg:grid-cols-2">
       <div class="overflow-hidden rounded-[3rem] border-8 border-card shadow-xl">
         <img
-          :src="heroKids"
-          alt="Copii la activități în grădiniță"
+          :src="despreHero"
+          alt="Masă de activități creative în grădiniță"
           loading="lazy"
           class="aspect-square w-full object-cover"
         />

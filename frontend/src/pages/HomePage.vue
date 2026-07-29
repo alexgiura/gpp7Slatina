@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
 
-import heroKids from "@/assets/hero-kids.jpg";
+import heroHome from "@/assets/hero-home.jpg";
 import engleza from "@/assets/program-engleza.jpg";
 import mare from "@/assets/program-mare.jpg";
 import mica from "@/assets/program-mica.jpg";
@@ -78,8 +78,8 @@ const programe = [
           class="relative rotate-2 overflow-hidden rounded-[3rem] border-8 border-card shadow-2xl"
         >
           <img
-            :src="heroKids"
-            alt="Copii fericiți jucându-se cu cuburi colorate"
+            :src="heroHome"
+            alt="Sală de joacă și învățare din grădiniță"
             width="1200"
             height="1200"
             class="aspect-square w-full object-cover"
