@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
-import { computed } from "vue";
+import { X } from "@lucide/vue";
+import { computed, onUnmounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
 import PageHero from "@/components/PageHero.vue";
@@ -8,6 +9,34 @@ import { getArticleBySlug } from "@/services/content";
 
 const route = useRoute();
 const article = computed(() => getArticleBySlug(String(route.params.slug)));
+const lightboxSrc = ref<string | null>(null);
+
+function openLightbox(src: string) {
+  lightboxSrc.value = src;
+}
+
+function closeLightbox() {
+  lightboxSrc.value = null;
+}
+
+function onKeydown(event: KeyboardEvent) {
+  if (event.key === "Escape") closeLightbox();
+}
+
+watch(lightboxSrc, (src) => {
+  if (src) {
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeydown);
+  } else {
+    document.body.style.overflow = "";
+    window.removeEventListener("keydown", onKeydown);
+  }
+});
+
+onUnmounted(() => {
+  document.body.style.overflow = "";
+  window.removeEventListener("keydown", onKeydown);
+});
 
 useHead(() =>
   article.value
@@ -46,13 +75,11 @@ useHead(() =>
     <PageHero :eyebrow="article.tag" :title="article.title" :subtitle="article.date" />
     <article class="py-16">
       <div class="mx-auto max-w-4xl px-6">
-        <div class="mb-12 overflow-hidden rounded-[2.5rem]">
+        <div class="mb-12 overflow-hidden rounded-[2.5rem] bg-muted/40">
           <img
             :src="article.image"
             :alt="article.title"
-            width="1024"
-            height="768"
-            class="w-full object-cover"
+            class="mx-auto max-h-[36rem] w-full object-contain"
           />
         </div>
         <!-- eslint-disable vue/no-v-html -->
@@ -61,6 +88,27 @@ useHead(() =>
           v-html="article.contentHtml"
         />
         <!-- eslint-enable vue/no-v-html -->
+
+        <div
+          v-if="article.images && article.images.length > 0"
+          class="mx-auto mt-12 grid max-w-3xl gap-4 sm:grid-cols-2"
+        >
+          <button
+            v-for="(src, i) in article.images"
+            :key="src"
+            type="button"
+            class="group overflow-hidden rounded-2xl border border-border bg-muted/30 text-left transition-shadow hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            @click="openLightbox(src)"
+          >
+            <img
+              :src="src"
+              :alt="`${article.title} — imagine ${i + 1}`"
+              loading="lazy"
+              class="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            />
+          </button>
+        </div>
+
         <div class="mx-auto mt-16 max-w-3xl border-t border-border pt-8">
           <router-link
             to="/noutati"
@@ -71,5 +119,31 @@ useHead(() =>
         </div>
       </div>
     </article>
+
+    <Teleport to="body">
+      <div
+        v-if="lightboxSrc"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 md:p-8"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Imagine mărită"
+        @click="closeLightbox"
+      >
+        <button
+          type="button"
+          class="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+          aria-label="Închide"
+          @click="closeLightbox"
+        >
+          <X class="h-6 w-6" />
+        </button>
+        <img
+          :src="lightboxSrc"
+          :alt="article.title"
+          class="max-h-full max-w-full rounded-lg object-contain shadow-2xl"
+          @click.stop
+        />
+      </div>
+    </Teleport>
   </template>
 </template>

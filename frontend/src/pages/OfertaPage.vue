@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
-import { Download, ExternalLink } from "@lucide/vue";
+import { ExternalLink } from "@lucide/vue";
 
 import PageHero from "@/components/PageHero.vue";
 import { getEducationalOffer } from "@/services/content";
@@ -53,7 +53,7 @@ const oferte = getEducationalOffer();
           {{ o.title }}
         </h2>
 
-        <div class="flex flex-wrap items-center gap-3">
+        <div>
           <a
             :href="o.pdf"
             target="_blank"
@@ -61,15 +61,7 @@ const oferte = getEducationalOffer();
             class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
           >
             <ExternalLink class="h-4 w-4" />
-            Deschide documentul
-          </a>
-          <a
-            :href="o.pdf"
-            download
-            class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition-all hover:bg-muted"
-          >
-            <Download class="h-4 w-4" />
-            Descarcă PDF
+            Deschide PDF
           </a>
         </div>
       </article>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
-import { Download, ExternalLink } from "@lucide/vue";
+import { ExternalLink } from "@lucide/vue";
 
 import PageHero from "@/components/PageHero.vue";
 import { getAnnouncements } from "@/services/content";
@@ -62,15 +62,6 @@ const anunturi = getAnnouncements();
           >
             Citește mai mult →
           </router-link>
-          <a
-            v-else
-            :href="a.pdf"
-            download
-            class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition-all hover:bg-muted"
-          >
-            <Download class="h-4 w-4" />
-            Descarcă PDF
-          </a>
         </div>
       </article>
     </div>
