@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
 
+import collageCladire from "@/assets/collage-cladire.jpg";
+import collageCurte from "@/assets/collage-curte.jpg";
 import heroHome from "@/assets/hero-home.jpg";
 import engleza from "@/assets/program-engleza.jpg";
 import mare from "@/assets/program-mare.jpg";
@@ -37,6 +39,23 @@ const programe = [
   { title: "Grupa Mijlocie", desc: "Dezvoltarea autonomiei și curiozității.", img: mijlocie },
   { title: "Grupa Mare", desc: "Pregătire pas cu pas pentru școală.", img: mare },
   { title: "Limbi Străine", desc: "Învățare distractivă a limbii engleze.", img: engleza },
+];
+
+const spatii = [
+  {
+    src: collageCladire,
+    alt: "Colaj cu fațada, intrarea și spațiile de festivități ale Corpului B, pe Aleea Lalelelor",
+    label: "Corpul B",
+    text: "Aleea Lalelelor nr. 1C — intrarea, holurile și sala în care ne întâlnim cu ocazia evenimentelor.",
+    tilt: "-rotate-2",
+  },
+  {
+    src: collageCurte,
+    alt: "Colaj cu aleile, spațiul verde și locurile de joacă din curtea Corpului A, pe Str. Toamnei",
+    label: "Corpul A",
+    text: "Str. Toamnei nr. 6, bl. 6 — aleile, spațiul verde și locurile de joacă din curte.",
+    tilt: "rotate-2",
+  },
 ];
 </script>
 
@@ -188,6 +207,54 @@ const programe = [
             unitate sunt deschise, colegiale, bazate pe respect și sprijin reciproc.
           </p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-soft-bg py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-16 text-center">
+        <span
+          class="mb-6 inline-block rounded-full bg-card px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-[oklch(0.4_0.08_220)] shadow-sm"
+        >
+          Spațiul nostru
+        </span>
+        <h2 class="mb-4 font-display text-4xl font-bold">Două corpuri, o curte plină de lumină</h2>
+        <p class="mx-auto max-w-2xl leading-relaxed text-muted-foreground">
+          Grădinița noastră funcționează în două clădiri diferite, în zona centrală a Slatinei. Așa
+          arată fiecare dintre ele.
+        </p>
+      </div>
+
+      <div class="grid gap-12 md:grid-cols-2">
+        <figure v-for="c in spatii" :key="c.label" class="group">
+          <div
+            class="rounded-[2.75rem] border border-border bg-card p-3 shadow-xl transition-transform duration-500 group-hover:rotate-0"
+            :class="c.tilt"
+          >
+            <div class="overflow-hidden rounded-[2.25rem] bg-secondary/15 p-4">
+              <img
+                :src="c.src"
+                :alt="c.alt"
+                loading="lazy"
+                class="aspect-[3/4] w-full rounded-[1.75rem] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            </div>
+          </div>
+          <figcaption class="mt-6 text-center">
+            <p class="font-display text-xl font-bold text-ink">{{ c.label }}</p>
+            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{{ c.text }}</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="mt-14 text-center">
+        <router-link
+          to="/galerie"
+          class="inline-flex items-center gap-2 font-bold text-primary hover:underline"
+        >
+          Vezi mai multe imagini în galerie →
+        </router-link>
       </div>
     </div>
   </section>
