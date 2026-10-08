@@ -4,7 +4,6 @@ import { useHead } from "@unhead/vue";
 import collageCladire from "@/assets/collage-cladire.jpg";
 import collageCurte from "@/assets/collage-curte.jpg";
 import heroHome from "@/assets/hero-home.jpg";
-import engleza from "@/assets/program-engleza.jpg";
 import mare from "@/assets/program-mare.jpg";
 import mica from "@/assets/program-mica.jpg";
 import mijlocie from "@/assets/program-mijlocie.jpg";
@@ -38,7 +37,6 @@ const programe = [
   { title: "Grupa Mică", desc: "Adaptare blândă și socializare prin joc.", img: mica },
   { title: "Grupa Mijlocie", desc: "Dezvoltarea autonomiei și curiozității.", img: mijlocie },
   { title: "Grupa Mare", desc: "Pregătire pas cu pas pentru școală.", img: mare },
-  { title: "Limbi Străine", desc: "Învățare distractivă a limbii engleze.", img: engleza },
 ];
 
 const spatii = [
@@ -265,7 +263,7 @@ const spatii = [
         <h2 class="mb-4 font-display text-4xl font-bold">Oferta Noastră Educațională</h2>
         <p class="text-muted-foreground">Programe adaptate fiecărei etape de dezvoltare</p>
       </div>
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
         <div
           v-for="p in programe"
           :key="p.title"
